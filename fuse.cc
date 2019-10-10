@@ -59,16 +59,31 @@ getattr(yfs_client::inum inum, struct stat &st)
         st.st_size = info.size;
         printf("   getattr -> %llu\n", info.size);
     } else {
-        yfs_client::dirinfo info;
-        ret = yfs->getdir(inum, info);
-        if(ret != yfs_client::OK)
-            return ret;
-        st.st_mode = S_IFDIR | 0777;
-        st.st_nlink = 2;
-        st.st_atime = info.atime;
-        st.st_mtime = info.mtime;
-        st.st_ctime = info.ctime;
-        printf("   getattr -> %lu %lu %lu\n", info.atime, info.mtime, info.ctime);
+        if(yfs->isdir(inum)){
+            yfs_client::dirinfo info;
+            ret = yfs->getdir(inum, info);
+            if(ret != yfs_client::OK)
+                return ret;
+            st.st_mode = S_IFDIR | 0777;
+            st.st_nlink = 2;
+            st.st_atime = info.atime;
+            st.st_mtime = info.mtime;
+            st.st_ctime = info.ctime;
+            printf("   getattr -> %lu %lu %lu\n", info.atime, info.mtime, info.ctime);
+        }
+        else{
+            yfs_client::fileinfo info;
+            ret=yfs->getfile(inum,info);
+            if(ret!=yfs_client::OK)
+                return ret;
+            st.st_mode = S_IFLNK | 0666;
+            st.st_nlink = 1;
+            st.st_atime = info.atime;
+            st.st_mtime = info.mtime;
+            st.st_ctime = info.ctime;
+            st.st_size = info.size;
+            printf("   getlink -> %llu\n", info.size);
+        }
     }
     return yfs_client::OK;
 }
@@ -380,6 +395,49 @@ fuseserver_open(fuse_req_t req, fuse_ino_t ino,
     fuse_reply_open(req, fi);
 }
 
+void
+fuseserver_readlink(fuse_req_t req, fuse_ino_t ino) {
+    yfs_client::inum inum = ino;
+    yfs_client::status ret;
+
+    std::string buf;
+    ret = yfs->readlink(inum, buf);
+    fuse_reply_readlink(req, buf.c_str());
+}
+
+void
+fuseserver_symlink(fuse_req_t req, const char *link,
+                   fuse_ino_t parent, const char *name) {
+    yfs_client::inum inum = parent;
+    yfs_client::inum id;
+    yfs_client::status ret;
+    struct fuse_entry_param e;
+    e.ino = id;
+    e.attr_timeout = 0.0;
+    e.entry_timeout = 0.0;
+    e.generation = 0;
+
+    ret = yfs->symlink(inum, name, link, id);
+    if (ret != yfs_client::OK) {
+        if (ret == yfs_client::EXIST) {
+            fuse_reply_err(req, EEXIST);
+        } else {
+            fuse_reply_err(req, ENOENT);
+        }
+        return;
+    }
+
+    ret = getattr(id, e.attr);
+
+    if (ret != yfs_client::OK) {
+        fuse_reply_err(req, ENOENT);
+        return;
+    }
+
+    fuse_reply_entry(req, &e);
+}
+
+
 //
 // Create a new directory with name @name in parent directory @parent.
 // Leave new directory's inum in e.ino and attributes in e.attr.
@@ -499,6 +557,8 @@ main(int argc, char *argv[])
     fuseserver_oper.setattr    = fuseserver_setattr;
     fuseserver_oper.unlink     = fuseserver_unlink;
     fuseserver_oper.mkdir      = fuseserver_mkdir;
+    fuseserver_oper.symlink    =fuseserver_symlink;
+    fuseserver_oper.readlink   =fuseserver_readlink;
     /** Your code here for Lab.
      * you may want to add
      * routines here to implement symbolic link,
@@ -508,6 +568,7 @@ main(int argc, char *argv[])
     const char *fuse_argv[20];
     int fuse_argc = 0;
     fuse_argv[fuse_argc++] = argv[0];
+    //ios platform
 #ifdef __APPLE__
     fuse_argv[fuse_argc++] = "-o";
     fuse_argv[fuse_argc++] = "nolocalcaches"; // no dir entry caching
