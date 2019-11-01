@@ -324,7 +324,7 @@ inode_manager::write_file(uint32_t inum, const char *buf, int size)
   
    if(size>NDIRECT*BLOCK_SIZE)
    {
-     while(write_size<=(int)((MAXFILE-1)*BLOCK_SIZE))
+     while(write_size<=(int)((MAXFILE-1)*BLOCK_SIZE)&&write_size<size)
     {
       new_block=this->bm->alloc_block();
       this->bm->write_block(new_block,buf+write_size);

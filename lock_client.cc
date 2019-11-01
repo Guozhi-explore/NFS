@@ -23,6 +23,7 @@ lock_client::stat(lock_protocol::lockid_t lid)
 {
   int r;
   lock_protocol::status ret = cl->call(lock_protocol::stat, cl->id(), lid, r);
+  printf("%d/n",ret);
   VERIFY (ret == lock_protocol::OK);
   return r;
 }
@@ -31,11 +32,23 @@ lock_protocol::status
 lock_client::acquire(lock_protocol::lockid_t lid)
 {
 	// Your lab2 part2 code goes here
+  printf("[lock_cliend] acquire %d \n",lid);
+  int r;
+  if(this->cl->call(lock_protocol::acquire,cl->id(),lid,r)==lock_protocol::OK)
+  {
+    return lock_protocol::OK;
+  }
+  return lock_protocol::IOERR;
 }
 
 lock_protocol::status
 lock_client::release(lock_protocol::lockid_t lid)
 {
 	// Your lab2 part2 code goes here
+  printf("[lock_cliend] release %d \n",lid);
+  int r;
+  if(this->cl->call(lock_protocol::release,cl->id(),lid,r)==lock_protocol::OK)
+    return lock_protocol::OK;
+  return lock_protocol::IOERR;
 }
 
