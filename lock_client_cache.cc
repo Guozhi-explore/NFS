@@ -123,35 +123,22 @@ lock_client_cache::release(lock_protocol::lockid_t lid)
   * 2.如果本地没有进程需要，用rpc归还
   * */
   tprintf("a6  %s\t",id.c_str());
-  if(this->lock_cache_list.at(lid).waiting_number!=0){
-    sem_wait(&this->lock_cache_list.at(lid).mutex_modify_lock_info);
-    this->lock_cache_list.at(lid).waiting_number=
-    this->lock_cache_list.at(lid).waiting_number-1;
-    sem_post(&this->lock_cache_list.at(lid).mutex_modify_lock_info);
-  }
+  this->lock_cache_list.at(lid).waiting_number=this->lock_cache_list.at(lid).waiting_number-1;
 
-  if(this->lock_cache_list.at(lid).needrevoke==true){
-    tprintf("a8  %s\t",id.c_str());
-    tprintf("[client release%d\n",this->lock_cache_list.at(lid).waiting_number);
-    //self own the clock
-    if(this->lock_cache_list.at(lid).waiting_number==0&&this->lock_cache_list.at(lid).status==LOCKED)
+  sem_wait(&this->lock_cache_list.at(lid).mutex_release_to_server);
+  if(this->lock_cache_list.at(lid).needrevoke==true&&
+    this->lock_cache_list.at(lid).waiting_number==0&&
+    this->lock_cache_list.at(lid).status==LOCKED)
     {
-      //本地无线程在等待，归还给server
-      int r;
+      tprintf("a8  %s\t",id.c_str());
+      tprintf("[client release%d\n",this->lock_cache_list.at(lid).waiting_number);
       this->lock_cache_list.erase(lid);
-      if(this->cl->call(lock_protocol::release,lid,id,r)
-        !=lock_protocol::OK)
-      {
-        return lock_protocol::IOERR;
-      }
-      else {
-        tprintf("%s release finish\n",id.c_str());
-        return lock_protocol::OK;
-      }
+      int r;
+      return this->cl->call(lock_protocol::release,lid,id,r);
     }
-  }
-  tprintf("a10  %s\t",id.c_str());
+  //tprintf("a10 lock_using_number%d  %s\t",lock_cache_list.at(lid).waiting_number, id.c_str());
   this->lock_cache_list.at(lid).status=FREE;
+  sem_post(&this->lock_cache_list.at(lid).mutex_release_to_server);
   sem_post(&this->lock_cache_list.at(lid).mutex_acquire_lock);
 
   return lock_protocol::OK;
@@ -171,27 +158,30 @@ lock_client_cache::revoke_handler(lock_protocol::lockid_t lid,
   int ret = rlock_protocol::OK;
   tprintf("[client:  %s   receive revoke\n",id.c_str());
   tprintf("a11    %s\t",id.c_str());
-  sem_wait(&this->lock_cache_list.at(lid).mutex_modify_lock_info);
-  this->lock_cache_list.at(lid).needrevoke=true;
-  sem_post(&this->lock_cache_list.at(lid).mutex_modify_lock_info);
-  //release lock immediately as no thread using 
-  tprintf("a12  %s\t",id.c_str());
-   if(this->lock_cache_list.at(lid).status==FREE&&this
-   ->lock_cache_list.at(lid).waiting_number==0)
+  if(this->lock_cache_list.find(lid)!=this->lock_cache_list.end())
   {
-    int r;  
-    tprintf("[revoke erase] %s \n",id.c_str());
-    sem_wait(&this->lock_cache_list.at(lid).mutex_acquire_lock);
-    this->lock_cache_list.erase(lid);
-    tprintf("[revoke erase finish] %s \n",id.c_str());
-    if(this->cl->call(lock_protocol::release,lid,id,r)
-      !=lock_protocol::OK)
-    {
-      return lock_protocol::IOERR;
-    }
-    else {
-      tprintf("%s release finish\n",id.c_str());
-    }
+      sem_wait(&this->lock_cache_list.at(lid).mutex_release_to_server);
+      this->lock_cache_list.at(lid).needrevoke=true;
+      //release lock immediately as no thread using 
+      tprintf("a12  %s\t",id.c_str());
+      if(this->lock_cache_list.at(lid).status==FREE&&this
+      ->lock_cache_list.at(lid).waiting_number==0)
+      {
+        int r;  
+        tprintf("[revoke erase] %s \n",id.c_str());
+        this->lock_cache_list.erase(lid);
+        tprintf("[revoke erase finish] %s \n",id.c_str());
+        if(this->cl->call(lock_protocol::release,lid,id,r)
+          !=lock_protocol::OK)
+        {
+          return lock_protocol::IOERR;
+        }
+        else {
+          tprintf("%s release finish\n",id.c_str());
+          return ret;
+        }
+      }
+      sem_post(&this->lock_cache_list.at(lid).mutex_release_to_server);
   }
   return ret;
 }
@@ -226,6 +216,7 @@ void lock_client_cache::add_lockinfo_if_not_exist(lock_protocol::lockid_t lid)
     lock_info.needrevoke=false;
     sem_init(&lock_info.mutex_acquire_lock,0,1);
     sem_init(&lock_info.mutex_modify_lock_info,0,1);
+    sem_init(&lock_info.mutex_release_to_server,0,1);
     this->lock_cache_list.insert(std::pair<int,c_lock_info>(lid,lock_info));
     tprintf("3\t");
     sem_wait(&this->lock_cache_list.at(lid).mutex_acquire_lock);

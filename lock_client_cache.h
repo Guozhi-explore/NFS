@@ -27,6 +27,7 @@ struct c_lock_info{
     sem_t mutex_acquire_lock;
     // must acquire modify lock before modify info value
     sem_t mutex_modify_lock_info; 
+    sem_t mutex_release_to_server;
     lockstatus status;
     int waiting_number;
     bool needrevoke;
