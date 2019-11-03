@@ -35,7 +35,9 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
   if(this->locks.at(lid).clockisusing==true&&this->locks.at(lid).clientiswaiting==true)
   {
     //keep id in the queue in preparing to retry
+    sem_wait(&this->locks.at(lid).modify_lock_info_mutex);
     this->locks.at(lid).lockwaiters.push_back(id);
+    sem_post(&this->locks.at(lid).modify_lock_info_mutex);
     return lock_protocol::RETRY;
   }
   if(this->locks.at(lid).clockisusing==true&&this->locks.at(lid).clientiswaiting==false)
@@ -52,6 +54,7 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
       return lock_protocol::IOERR;
     }
     int r;
+    tprintf("send revoke to %s\n",this->locks.at(lid).lock_owner.c_str());
     //send revoke to lock owner
     if(this->server->call(rlock_protocol::revoke,lid,r)
       ==lock_protocol::OK)
