@@ -12,7 +12,10 @@
 #include <vector>
 using namespace std;
 
-enum state{
+
+
+class lock_server_cache {
+  enum state{
     NONE,LOCKED,REVOKING,RETRYING
 };
 
@@ -26,8 +29,6 @@ struct server_lock_info{
   sem_t modify_lock_info_mutex;
   sem_t acquire_lock_mutex;
 };
-
-class lock_server_cache {
  private:
   int nacquire;
   rpcc *server;

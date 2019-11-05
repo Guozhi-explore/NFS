@@ -18,7 +18,7 @@ lock_server_cache::lock_server_cache()
 
 int lock_server_cache::acquire(lock_protocol::lockid_t lid, 
               std::string id, 
-                               int &)
+                               int &r)
 {
     sem_wait(&this->lock_manager);
   lock_protocol::status ret = lock_protocol::OK;
@@ -44,14 +44,16 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
         this->locks.at(lid).lockwaiters.push_back(id);
         this->locks.at(lid).lock_state=REVOKING;
         sem_post(&this->lock_manager);
-        rpc_call(this->locks.at(lid).lock_owner,lid,rlock_protocol::revoke);
-        break;
+        handle(this->locks.at(lid).lock_owner).safebind()->call(rlock_protocol::revoke,lid,r);
+        //rpc_call(this->locks.at(lid).lock_owner,lid,rlock_protocol::revoke);
+        return lock_protocol::RETRY;
     case REVOKING:
         this->locks.at(lid).lockwaiters.push_back(id);
         sem_post(&lock_manager);
+        return lock_protocol::RETRY;
     case RETRYING:
         //the first waiting client
-        if(id.compare(this->locks.at(lid).lockwaiters[0])==0)
+        if(id.compare(this->locks.at(lid).retry_client)==0)
         {
             this->locks.at(lid).retry_client.clear();
             this->locks.at(lid).lock_state=LOCKED;
@@ -60,7 +62,8 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
             {
                 this->locks.at(lid).lock_state=REVOKING;
                 sem_post(&lock_manager);
-                this->rpc_call(id,lid,rlock_protocol::revoke);
+                handle(id).safebind()->call(rlock_protocol::revoke,lid,r);
+                //this->rpc_call(id,lid,rlock_protocol::revoke);
             }
             else{
                 sem_post(&lock_manager);
@@ -69,6 +72,7 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
         else{
             this->locks.at(lid).lockwaiters.push_back(id);
             sem_post(&lock_manager);
+            return lock_protocol::RETRY;
         }
   default: 
       break;
@@ -102,7 +106,8 @@ std::string id,
         this->locks.at(lid).lock_owner.clear();
         this->locks.at(lid).lock_state=RETRYING;
         sem_post(&this->lock_manager);
-        this->rpc_call(retry_client,lid,rlock_protocol::retry);
+        handle(retry_client).safebind()->call(rlock_protocol::retry,lid,r);
+        //this->rpc_call(retry_client,lid,rlock_protocol::retry);
     }
   }
   return ret;
