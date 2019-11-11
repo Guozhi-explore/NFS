@@ -15,9 +15,13 @@ class extent_protocol {
     get,
     getattr,
     remove,
-    create
+    create,
+    revoke
   };
-
+  enum revoke_types{
+    WRITEBACK=1,
+    DELETE=2,
+  };
   enum types {
     T_DIR = 1,
     T_FILE =2,

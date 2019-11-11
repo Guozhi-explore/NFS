@@ -83,10 +83,10 @@ yfs_client::isdir(inum inum)
     }
 
     if (a.type == extent_protocol::T_DIR) {
-        printf("isfile: %lld is a file\n", inum);
+        printf("isdir: %lld is a dir\n", inum);
         return true;
     } 
-    printf("isfile: %lld is a dir\n", inum);
+    printf("isdir: %lld is a file\n", inum);
     return false;
 }
 
@@ -328,6 +328,7 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out)
         {
             ino_out=it->inum;
             found=true;
+            printf("exist");
             return EXIST;
         }
     }

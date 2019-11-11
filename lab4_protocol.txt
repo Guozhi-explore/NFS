@@ -1,0 +1,30 @@
+1.once a client cache an inode number,it can use it directly 
+2.if another client also want to cache the inode number,if send a CACHE
+
+inode states{ NONE,FREE,BUSY}
+
+for remove:
+once a client remove a inode number he has cached, he should send a 
+remove rpc to server. and server
+should send a REMOVE rpc to all the client that cached the inode number
+
+for getattr:
+once send a rpc----getattr,client cache the attr of the inode,if other 
+
+for create:
+send a rpc to server,than cache the inode number,set its content ""
+
+for get:send a rpc to server,than cache the inode number 
+
+for put: if inode is cached,put content in the cache,if there exist 
+other client also cache the inode,
+put should use rpc send to server,than server send multiple rpcs to 
+other client that cache the inode.
+
+
+方案1：
+多个client可以同时cache，但是一个client，put，同时要通过server将put信息传递给多个client。
+不可能，如果每一次put都要发不止一次rpc，那么不可能降到十分之一。
+方案2：
+inode只允许被一个client cache，如果其他client需要cache，
+server将发一个revoke的rpc给正在cache的client。
