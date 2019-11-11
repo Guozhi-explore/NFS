@@ -1,10 +1,10 @@
 #ifndef yfs_client_h
 #define yfs_client_h
-
+#define MAX_FILENAME_SIZE 64
 #include <string>
 
 #include "lock_protocol.h"
-#include "lock_client.h"
+#include "lock_client_cache.h"
 
 //#include "yfs_protocol.h"
 #include "extent_client.h"
@@ -13,7 +13,7 @@
 
 class yfs_client {
   extent_client *ec;
-  lock_client *lc;
+  lock_client_cache *lc;
  public:
 
   typedef unsigned long long inum;
@@ -36,6 +36,12 @@ class yfs_client {
     yfs_client::inum inum;
   };
 
+  struct dir_content{
+    yfs_client::inum inum;
+    char file_name[MAX_FILENAME_SIZE];
+    unsigned short filename_size;
+  };
+
  private:
   static std::string filename(inum);
   static inum n2i(std::string);
@@ -47,7 +53,7 @@ class yfs_client {
   bool isdir(inum);
 
   int getfile(inum, fileinfo &);
-  int getdir(inum, dirinfo &);
+  int getdir(inum, dirinfo &dirinfo);
 
   int setattr(inum, size_t);
   int lookup(inum, const char *, bool &, inum &);
@@ -59,6 +65,10 @@ class yfs_client {
   int mkdir(inum , const char *, mode_t , inum &);
   
   /** you may need to add symbolic link related methods here.*/
+  int symlink(inum parent, const char *name, const char *link, inum &ino_out);
+
+  int readlink(inum ino, std::string &data);
+  bool issymlink(inum inum);
 };
 
 #endif 

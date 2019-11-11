@@ -20,6 +20,7 @@ class disk {
 
  public:
   disk();
+    
   void read_block(uint32_t id, char *buf);
   void write_block(uint32_t id, const char *buf);
 };
@@ -77,7 +78,7 @@ typedef struct inode {
 } inode_t;
 
 class inode_manager {
- private:
+ public:
   block_manager *bm;
   struct inode* get_inode(uint32_t inum);
   void put_inode(uint32_t inum, struct inode *ino);
