@@ -69,6 +69,14 @@ class yfs_client {
 
   int readlink(inum ino, std::string &data);
   bool issymlink(inum inum);
+private:
+  //lookup,isfile,isdir,readdir may be called by other funcs,but they also have to acquire lock,which may lead to a func
+  //acquire a lock twice,so i implement three funcs to replace lookup,isfile,isdir when they are called by other 
+  //funcs,as a result these four funcs can't acquire lock
+  bool _isfile(inum);
+  bool _isdir(inum);
+  int _lookup(inum, const char *, bool &, inum &);
+  int _readdir(inum, std::list<dirent> &);
 };
 
 #endif 

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
+#include<ctime>
 #include<tprintf.h>
 
 int extent_client::last_port=1;
@@ -29,8 +30,8 @@ extent_client::extent_client(std::string dst)
   host << hname << ":" << client_port;
   url = host.str();
   last_port = client_port;
-  rpcs *ecrpc=new rpcs(client_port);
-  ecrpc->reg(extent_protocol::revoke,this,&extent_client::revoke_handler);
+  //rpcs *ecrpc=new rpcs(client_port);
+  //ecrpc->reg(extent_protocol::revoke,this,&extent_client::revoke_handler);
   tprintf("%s\n",url.c_str());
 }
 
@@ -48,6 +49,7 @@ extent_client::create(uint32_t type, extent_protocol::extentid_t &id)
   int r;
   ret=cl->call(extent_protocol::create,type,url,id);
   cache_list[id].eid_status=FREE;
+  cache_list[id].eid_attr.type=type;
   return ret; 
 
 }
@@ -69,14 +71,21 @@ extent_client::get(extent_protocol::extentid_t eid, std::string &buf)
   {
     printf("ex get use cache\n");
     buf=this->cache_list[eid].content;
-    return ret;
   }
-  printf("ex get rpc\n");
-  int r;
-  ret=cl->call(extent_protocol::get,eid,url,buf);
-  this->cache_list[eid].eid_status=FREE;
-  this->cache_list[eid].contain_content=true;
-  this->cache_list[eid].content=buf;
+  else{
+    printf("ex get rpc\n");
+    int r;
+    ret=cl->call(extent_protocol::get,eid,url,buf);
+    tprintf("get result %d\n",ret);
+    this->cache_list[eid].eid_status=FREE;
+    this->cache_list[eid].contain_content=true;
+    this->cache_list[eid].content=buf;
+  }
+  //modify atime
+  if(this->cache_list[eid].contain_attr==true)
+  {
+    this->cache_list[eid].eid_attr.atime=(unsigned) std::time(0);
+  }
   return ret;
 }
 
@@ -92,16 +101,10 @@ extent_client::getattr(extent_protocol::extentid_t eid,
   printf("[ec getattr] of %d\n",eid);
   int r;
   extent_protocol::status ret = extent_protocol::OK;
-  if(this->cache_list.find(eid)!=cache_list.end()&&cache_list[eid].contain_attr&&
-  !cache_list[eid].modify_content)
+  if(this->cache_list.find(eid)!=cache_list.end()&&cache_list[eid].contain_attr)
   {
     attr=this->cache_list[eid].eid_attr;
     return ret;
-  }
-  if(this->cache_list.find(eid)!=cache_list.end()&&cache_list[eid].modify_content)
-  {
-    cl->call(extent_protocol::put,eid,this->cache_list[eid].content,url,r);
-    cache_list[eid].modify_content=false;
   }
   printf("ex getattr send rpc\n");
   ret = cl->call(extent_protocol::getattr, eid,url, attr);
@@ -118,17 +121,20 @@ extent_client::put(extent_protocol::extentid_t eid, std::string buf)
   extent_protocol::status ret = extent_protocol::OK;
   // Your lab2 part1 code goes here
   int r;
-  if(this->cache_list.find(eid)!=cache_list.end())
-  {
-    this->cache_list[eid].content=buf;
-    this->cache_list[eid].modify_content=true;
-    this->cache_list[eid].contain_content=true;
-    return ret;
-  }                                                                                                                                           
-  ret=cl->call(extent_protocol::put,eid,buf,url,r);
-  this->cache_list[eid].eid_status=FREE;
-  this->cache_list[eid].contain_content=true;
+  
   this->cache_list[eid].content=buf;
+  this->cache_list[eid].modify_content=true; 
+  this->cache_list[eid].contain_content=true;
+  this->cache_list[eid].eid_status=FREE;
+  
+  //modify attr
+  this->cache_list[eid].eid_attr.atime=(unsigned) std::time(0);
+  this->cache_list[eid].eid_attr.ctime=(unsigned) std::time(0);
+  cache_list[eid].eid_attr.mtime=(unsigned) std::time(0);
+  cache_list[eid].eid_attr.size=buf.size();
+  //put 不能得到type，只有当是自己create的文件，type已知，才能put直接设置contain_attr为true
+  
+    cache_list[eid].contain_attr=true;
   return ret;
 }
 
@@ -141,6 +147,8 @@ extent_client::remove(extent_protocol::extentid_t eid)
   ret=cl->call(extent_protocol::remove,eid,r);
   return ret;
 }
+
+
 
 extent_protocol::status
 extent_client::revoke_handler(extent_protocol::extentid_t eid,
@@ -172,4 +180,32 @@ uint32_t type, int &){
   }
   printf("%s loss cache of eid:%d",url.c_str(),eid);
   return ret;
+}
+
+int extent_client::disable_cache(extent_protocol::extentid_t eid)
+{
+  int r;
+  int ret=extent_protocol::RPCERR;
+  string empty="";
+  if(this->cache_list.find(eid)!=cache_list.end()&&
+  this->cache_list[eid].contain_content&&cache_list[eid].modify_content)
+  {
+    ret=cl->call(extent_protocol::put,eid,cache_list[eid].content,empty,r);
+    tprintf("disable inode: %u 's cache rpc finish\n",eid);
+  }
+  
+  cache_list[eid].eid_status=NONE;
+  cache_list[eid].contain_attr=false;
+  cache_list[eid].contain_content=false;
+  cache_list[eid].modify_content=false;
+  cache_list[eid].eid_attr.type=extent_protocol::T_DIR;
+  return ret;
+}
+
+void extent_release::dorelease(lock_protocol::lockid_t lid)
+{
+  int result;
+  tprintf("disable cache\n");
+  result=this->ec_release->disable_cache(lid);
+  tprintf("disable cache result %d\n",result);
 }

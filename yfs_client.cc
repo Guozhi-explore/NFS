@@ -14,11 +14,15 @@ yfs_client::yfs_client(std::string extent_dst, std::string lock_dst)
 {
   printf("[yc yc]");
   ec = new extent_client(extent_dst);
-  lc = new lock_client_cache(lock_dst);
+  lock_release_user *er;
+  er=new extent_release(ec);
+  lc = new lock_client_cache(lock_dst,er);
+  lc->acquire(1);
   if (ec->put(1, "") != extent_protocol::OK)
   {
       printf("error init root dir\n"); // XYB: init root dir
   }
+  lc->release(1);
 }
 
 
@@ -45,9 +49,10 @@ yfs_client::isfile(inum inum)
     printf("[yc isfile]");
     extent_protocol::attr a;
     extent_protocol::status ec_result;
-
+    
+    lc->acquire(inum);
     ec_result=ec->getattr(inum,a);
-
+    lc->release(inum);
     if (ec_result != extent_protocol::OK) {
         printf("error getting attr\n");
         return false;
@@ -61,11 +66,27 @@ yfs_client::isfile(inum inum)
     printf("isfile: %lld is a dir\n", inum);
     return false;
 }
-/** Your code here for Lab...
- * You may need to add routines such as
- * readlink, issymlink here to implement symbolic link.
- * 
- * */
+
+bool yfs_client::_isfile(inum inum)
+{
+    printf("[yc isfile]");
+    extent_protocol::attr a;
+    extent_protocol::status ec_result;
+    
+    ec_result=ec->getattr(inum,a);
+    if (ec_result != extent_protocol::OK) {
+        printf("error getting attr\n");
+        return false;
+    }
+    
+
+    if (a.type == extent_protocol::T_FILE) {
+        printf("isfile: %lld is a file\n", inum);
+        return true;
+    } 
+    printf("isfile: %lld is a dir\n", inum);
+    return false;
+}
 
 bool
 yfs_client::isdir(inum inum)
@@ -74,9 +95,9 @@ yfs_client::isdir(inum inum)
     // Oops! is this still correct when you implement symlink?
     extent_protocol::attr a;
     extent_protocol::status ec_result;
-
+    lc->acquire(inum);
     ec_result=ec->getattr(inum,a);
-
+    lc->release(inum);
     if (ec_result != extent_protocol::OK) {
         printf("error getting attr\n");
         return false;
@@ -90,6 +111,26 @@ yfs_client::isdir(inum inum)
     return false;
 }
 
+bool 
+yfs_client::_isdir(inum inum)
+{
+    printf("[yc isdir]");
+    // Oops! is this still correct when you implement symlink?
+    extent_protocol::attr a;
+    extent_protocol::status ec_result;
+    ec_result=ec->getattr(inum,a);
+    if (ec_result != extent_protocol::OK) {
+        printf("error getting attr\n");
+        return false;
+    }
+
+    if (a.type == extent_protocol::T_DIR) {
+        printf("isdir: %lld is a dir\n", inum);
+        return true;
+    } 
+    printf("isdir: %lld is a file\n", inum);
+    return false;
+}
 int
 yfs_client::getfile(inum inum, fileinfo &fin)
 {
@@ -203,7 +244,7 @@ yfs_client::create(inum parent, const char *name, mode_t mode, inum &ino_out)
     bool file_exist=false;
     lc->acquire(parent);
 
-    if(lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
+    if(_lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
     {
         cout<<"[yfs test message]: "<<"file exist"<<endl;
         lc->release(parent);
@@ -257,7 +298,7 @@ yfs_client::mkdir(inum parent, const char *name, mode_t mode, inum &ino_out)
     bool file_exist=false;
     lc->acquire(parent);
 
-    if(lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
+    if(_lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
     {
         cout<<"[yfs test message]: "<<"file exist"<<endl;
         lc->release(parent);
@@ -294,7 +335,7 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out)
      * note: lookup file from parent dir according to name;
      * you should design the format of directory content.
      */
-
+    lc->acquire(parent);
     int dir_exist=0;
     dirinfo dir_info;
     std::list<dirent> entries;
@@ -305,7 +346,60 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out)
     /*
     *judge dir exist
     */
-    if(!isdir(parent))
+    if(!_isdir(parent))
+    {
+        found=false;
+        lc->release(parent);
+        return IOERR;
+    }
+    
+    /*
+    *get file inum and name in the dir
+    */
+    if(_readdir(parent,entries)==IOERR)
+    {
+        found=false;
+        lc->release(parent);
+        return IOERR;
+    }
+    printf("[yc lookup test]: %s\n",name);
+    ostr<<name;
+    for(std::list<dirent>::iterator it=entries.begin();it!=entries.end();++it)
+    {
+        
+        if(it->name.compare(ostr.str())==0)
+        {
+            ino_out=it->inum;
+            found=true;
+            printf("exist");
+            lc->release(parent);
+            return EXIST;
+        }
+    }
+    found=false;
+    lc->release(parent);
+    return OK;
+}
+
+int yfs_client::_lookup(inum parent, const char *name, bool &found, inum &ino_out){
+     printf("[yc lookup]");
+    /*
+     * your code goes here.
+     * note: lookup file from parent dir according to name;
+     * you should design the format of directory content.
+     */
+    
+    int dir_exist=0;
+    dirinfo dir_info;
+    std::list<dirent> entries;
+     ostringstream ostr;
+
+    memset(&dir_info, 0, sizeof(struct dirinfo));
+
+    /*
+    *judge dir exist
+    */
+    if(!_isdir(parent))
     {
         found=false;
         return IOERR;
@@ -314,7 +408,7 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out)
     /*
     *get file inum and name in the dir
     */
-    if(readdir(parent,entries)==IOERR)
+    if(_readdir(parent,entries)==IOERR)
     {
         found=false;
         return IOERR;
@@ -332,21 +426,49 @@ yfs_client::lookup(inum parent, const char *name, bool &found, inum &ino_out)
             return EXIST;
         }
     }
-    
-    /*
-    * acquire lock in lookup, to avoid the case:
-    * in fuctions{ mkdir,create,symlink}
-    * after lookup return ok,the lock of parent may be used by
-    * another thread,which lead to two or more threads create same name file 
-    * or dir 
-    */
-
     found=false;
     return OK;
 }
-
 int
 yfs_client::readdir(inum dir, std::list<dirent> &list)
+{
+    printf("[yc readdir]");
+    int r = OK;
+    lc->acquire(dir);
+    /*
+     * your code goes here.
+     * note: you should parse the dirctory content using your defined format,
+     * and push the dirents to the list.
+     */
+    string buf;
+    std::list<dirent> entries;
+    std::list<dirent>::iterator dirent_iter=entries.end();
+    dir_content parse_entry;
+    dirent dir_entry;
+
+    
+    ec->get(dir,buf);
+
+    const char *cbuf=buf.c_str();
+
+    /*
+    *parse string to dirent listR
+    */
+    for(int i=0;i<buf.size();i+=sizeof(struct dir_content))
+    {
+        memcpy(&parse_entry, cbuf + i, sizeof(struct dir_content));
+        dir_entry.inum=parse_entry.inum;
+        dir_entry.name.assign(parse_entry.file_name,parse_entry.filename_size);
+        entries.insert(dirent_iter,dir_entry);
+        dirent_iter=entries.end();
+    }
+    list=entries;
+    lc->release(dir);
+    return r;
+}
+
+int
+yfs_client::_readdir(inum dir, std::list<dirent> &list)
 {
     printf("[yc readdir]");
     int r = OK;
@@ -381,6 +503,7 @@ yfs_client::readdir(inum dir, std::list<dirent> &list)
     list=entries;
     return r;
 }
+
 
 int
 yfs_client::read(inum ino, size_t size, off_t off, std::string &data)
@@ -467,7 +590,7 @@ int yfs_client::unlink(inum parent,const char *name)
     int i=0;
     lc->acquire(parent);
 
-    if(!isdir(parent))
+    if(!_isdir(parent))
     {
         return IOERR;
     }
@@ -517,7 +640,7 @@ int yfs_client::symlink(inum parent, const char *name, const char *link, inum &i
 
     lc->acquire(parent);
     //acquire lock in lookup
-    if(lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
+    if(_lookup(parent,name,file_exist,ino_out)!=extent_protocol::OK)
     {
         lc->release(parent);
         cout<<"[yfs test message]: "<<"file exist"<<endl;
@@ -563,8 +686,9 @@ int yfs_client::readlink(inum ino, std::string &data)
     int r = OK;
     string buf;
     
+    lc->acquire(ino);
     r = ec->get(ino, buf);
-    
+    lc->release(ino);
     cout<<"[symlink test]:"<<buf<<endl;
     data = buf;
 
@@ -592,3 +716,4 @@ bool yfs_client::issymlink(inum inum)
     printf("isfile: %lld is a dir\n", inum);
     return false;
 }
+

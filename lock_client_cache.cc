@@ -9,6 +9,8 @@
 #include "tprintf.h"
 
 
+
+
 int lock_client_cache::last_port = 0;
 
 lock_client_cache::lock_client_cache(std::string xdst, 
@@ -162,6 +164,8 @@ lock_client_cache::release(lock_protocol::lockid_t lid) {
         lockEntry->state = RELEASING;
         pthread_mutex_unlock(&ServerLock);
          tprintf("send release %s",id.c_str());
+        lu->dorelease(lid);
+        this->lu->dorelease(lid);
         ret = cl->call(lock_protocol::release, lid, id, r);
         pthread_mutex_lock(&ServerLock);
         lockEntry->todo = EMPTY;
@@ -195,6 +199,7 @@ lock_client_cache::revoke_handler(lock_protocol::lockid_t lid,
         lockEntry->state = RELEASING;
         pthread_mutex_unlock(&ServerLock);
         tprintf("send release %s",id.c_str());
+        this->lu->dorelease(lid);
         ret = cl->call(lock_protocol::release, lid, id, r);
         pthread_mutex_lock(&ServerLock);
         lockEntry->state = NONE;

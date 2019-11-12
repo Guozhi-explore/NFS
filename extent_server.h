@@ -20,7 +20,7 @@ class extent_server {
   inode_manager *im;
 
 private:
-  struct cacheEntry{
+ /* struct cacheEntry{
     bool content_is_cached;
     bool attr_is_cached;
     string content_cached_url;
@@ -31,7 +31,7 @@ private:
       content_cached_url="";
       attr_cached_url="";
     }
-  };
+  };*/
  public:
   extent_server();
 
@@ -41,7 +41,7 @@ private:
   int getattr(extent_protocol::extentid_t id, std::string url,extent_protocol::attr &);
   int remove(extent_protocol::extentid_t id, int &);
 private:
-  map<extent_protocol::extentid_t ,cacheEntry > cache_list; 
+ // map<extent_protocol::extentid_t ,cacheEntry > cache_list; 
 };
 
 #endif 

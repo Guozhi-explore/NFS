@@ -2,12 +2,13 @@
 
 #ifndef extent_client_h
 #define extent_client_h
-
+#include "lock_client_cache.h"
 #include <string>
 #include "extent_protocol.h"
 #include "extent_server.h"
 #include<string>
 #include<map>
+
 
 
 class extent_client {
@@ -16,6 +17,8 @@ class extent_client {
   int client_port;
   std::string hostname;
   std::string url;
+
+
  enum status{
    USING,
    FREE,
@@ -40,6 +43,7 @@ class extent_client {
       contain_attr=false;
       modify_content=false;
       eid_status=NONE;
+      eid_attr.type=extent_protocol::T_DIR;
     }
   };
  public:
@@ -56,9 +60,21 @@ class extent_client {
   extent_protocol::status remove(extent_protocol::extentid_t eid);
   
   extent_protocol::status revoke_handler(extent_protocol::extentid_t eid,uint32_t type, int &);
+  int disable_cache(extent_protocol::extentid_t eid);
 
 private:
   map<extent_protocol::extentid_t,cacheEntry> cache_list;
+};
+
+
+class extent_release:public lock_release_user{
+    public: 
+    extent_release(extent_client *ec){
+        this->ec_release=ec;
+    }
+    void dorelease(lock_protocol::lockid_t);
+    private:
+    extent_client *ec_release;
 };
 
 #endif 
