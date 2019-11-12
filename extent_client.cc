@@ -48,8 +48,16 @@ extent_client::create(uint32_t type, extent_protocol::extentid_t &id)
   // Your lab2 part1 code goes here
   int r;
   ret=cl->call(extent_protocol::create,type,url,id);
+  //self create file,content and attr is new
   cache_list[id].eid_status=FREE;
   cache_list[id].eid_attr.type=type;
+  cache_list[id].contain_attr=true;
+  cache_list[id].eid_attr.atime=std::time(0);
+  cache_list[id].eid_attr.mtime=std::time(0);
+  cache_list[id].eid_attr.ctime=std::time(0);
+  cache_list[id].eid_attr.size=0;
+  cache_list[id].content="";
+  cache_list[id].contain_content=true;
   return ret; 
 
 }
@@ -75,7 +83,10 @@ extent_client::get(extent_protocol::extentid_t eid, std::string &buf)
   else{
     printf("ex get rpc\n");
     int r;
+    do{
     ret=cl->call(extent_protocol::get,eid,url,buf);
+    }
+    while(ret!=extent_protocol::OK);
     tprintf("get result %d\n",ret);
     this->cache_list[eid].eid_status=FREE;
     this->cache_list[eid].contain_content=true;
@@ -107,7 +118,9 @@ extent_client::getattr(extent_protocol::extentid_t eid,
     return ret;
   }
   printf("ex getattr send rpc\n");
+  do{
   ret = cl->call(extent_protocol::getattr, eid,url, attr);
+  }while(ret!=extent_protocol::OK);
   this->cache_list[eid].eid_status=FREE;
   this->cache_list[eid].contain_attr=true;
   this->cache_list[eid].eid_attr=attr;
@@ -190,7 +203,9 @@ int extent_client::disable_cache(extent_protocol::extentid_t eid)
   if(this->cache_list.find(eid)!=cache_list.end()&&
   this->cache_list[eid].contain_content&&cache_list[eid].modify_content)
   {
+    do{
     ret=cl->call(extent_protocol::put,eid,cache_list[eid].content,empty,r);
+    }while(ret!=extent_protocol::OK);
     tprintf("disable inode: %u 's cache rpc finish\n",eid);
   }
   
