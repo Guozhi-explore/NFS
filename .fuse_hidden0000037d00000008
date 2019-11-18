@@ -1,0 +1,10 @@
+starting ./lock_server 20190 > lock_server.log 2>&1 &
+starting ./extent_server 20184 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20184 20190 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20184 20190 > yfs_client2.log 2>&1 &
+starting ./lock_server 16382 > lock_server.log 2>&1 &
+starting ./extent_server 16376 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 16376 16382 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 16376 16382 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B

@@ -46,6 +46,7 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
     */
     tprintf("acquire by %s\n",id.c_str());
     int r;
+    int ret;
     pthread_mutex_lock(&ServerLock);
     if (locks.find(lid) == locks.end()) 
     { 
@@ -74,7 +75,7 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
             while (lockEntry->state == ACQUIRING) {
                 pthread_mutex_unlock(&ServerLock);
                 tprintf("send acquire %s",id.c_str());
-                int ret = cl->call(lock_protocol::acquire, lid, id, r);
+                ret=cl->call(lock_protocol::acquire, lid, id, r);
                 pthread_mutex_lock(&ServerLock);
                 if (ret == lock_protocol::OK) {
                     lockEntry->state = LOCKED;
@@ -94,7 +95,7 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
             while (lockEntry->state == ACQUIRING) {
                 pthread_mutex_unlock(&ServerLock);
                 tprintf("send acquire %s",id.c_str());
-                int ret = cl->call(lock_protocol::acquire, lid, id, r);
+                ret=cl->call(lock_protocol::acquire, lid, id, r);
                 pthread_mutex_lock(&ServerLock);
                 if (ret == lock_protocol::OK) {
                     lockEntry->state = LOCKED;
@@ -125,7 +126,7 @@ lock_client_cache::acquire(lock_protocol::lockid_t lid) {
                 while (lockEntry->state == ACQUIRING) {
                     pthread_mutex_unlock(&ServerLock);
                      tprintf("send acquire %s",id.c_str());
-                    int ret = cl->call(lock_protocol::acquire, lid, id, r);
+                    ret=cl->call(lock_protocol::acquire, lid, id, r);
                     pthread_mutex_lock(&ServerLock);
                     if (ret == lock_protocol::OK) {
                         lockEntry->state = LOCKED;
@@ -166,7 +167,10 @@ lock_client_cache::release(lock_protocol::lockid_t lid) {
          tprintf("send release %s",id.c_str());
         lu->dorelease(lid);
         this->lu->dorelease(lid);
-        ret = cl->call(lock_protocol::release, lid, id, r);
+        do{
+        ret=cl->call(lock_protocol::release, lid, id, r);
+        }
+        while(ret!=lock_protocol::OK);
         pthread_mutex_lock(&ServerLock);
         lockEntry->todo = EMPTY;
         lockEntry->state = NONE;
@@ -200,7 +204,10 @@ lock_client_cache::revoke_handler(lock_protocol::lockid_t lid,
         pthread_mutex_unlock(&ServerLock);
         tprintf("send release %s",id.c_str());
         this->lu->dorelease(lid);
-        ret = cl->call(lock_protocol::release, lid, id, r);
+        do{
+        ret=cl->call(lock_protocol::release, lid, id, r);
+        }
+        while(ret!=lock_protocol::OK);
         pthread_mutex_lock(&ServerLock);
         lockEntry->state = NONE;
         if (lockEntry->threads.size() >= 1) {

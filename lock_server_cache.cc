@@ -62,8 +62,10 @@ int lock_server_cache::acquire(lock_protocol::lockid_t lid,
             {
                 this->locks.at(lid).lock_state=REVOKING;
                 sem_post(&lock_manager);
-                handle(id).safebind()->call(rlock_protocol::revoke,lid,r);
+                do{
+                ret=handle(id).safebind()->call(rlock_protocol::revoke,lid,r);
                 //this->rpc_call(id,lid,rlock_protocol::revoke);
+                }while(ret!=lock_protocol::OK);
             }
             else{
                 sem_post(&lock_manager);
@@ -106,8 +108,10 @@ std::string id,
         this->locks.at(lid).lock_owner.clear();
         this->locks.at(lid).lock_state=RETRYING;
         sem_post(&this->lock_manager);
-        handle(retry_client).safebind()->call(rlock_protocol::retry,lid,r);
+        do{
+        ret=handle(retry_client).safebind()->call(rlock_protocol::retry,lid,r);
         //this->rpc_call(retry_client,lid,rlock_protocol::retry);
+        }while(ret!=lock_protocol::OK);
     }
   }
   return ret;

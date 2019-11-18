@@ -146,7 +146,7 @@ extent_client::put(extent_protocol::extentid_t eid, std::string buf)
   cache_list[eid].eid_attr.mtime=(unsigned) std::time(0);
   cache_list[eid].eid_attr.size=buf.size();
   //put 不能得到type，只有当是自己create的文件，type已知，才能put直接设置contain_attr为true
-  
+  if(cache_list[eid].eid_attr.type!=extent_protocol::T_NONE)
     cache_list[eid].contain_attr=true;
   return ret;
 }
@@ -213,7 +213,9 @@ int extent_client::disable_cache(extent_protocol::extentid_t eid)
   cache_list[eid].contain_attr=false;
   cache_list[eid].contain_content=false;
   cache_list[eid].modify_content=false;
-  cache_list[eid].eid_attr.type=extent_protocol::T_DIR;
+  //现在假定inode的type不会改变，故type直接用过期的。下次再getattr的时候，很多情况下可以直接从本地拿，
+  //当然这是个bug，可以利用来写测试脚本
+  //cache_list[eid].eid_attr.type=extent_protocol::T_NONE;
   return ret;
 }
 

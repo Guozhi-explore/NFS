@@ -43,7 +43,6 @@ class extent_client {
       contain_attr=false;
       modify_content=false;
       eid_status=NONE;
-      eid_attr.type=extent_protocol::T_DIR;
     }
   };
  public:
