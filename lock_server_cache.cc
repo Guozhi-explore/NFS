@@ -4,132 +4,123 @@
 #include <sstream>
 #include <stdio.h>
 #include <unistd.h>
+#include <set>
 #include <arpa/inet.h>
+#include <sys/time.h>
 #include "lang/verify.h"
 #include "handle.h"
 #include "tprintf.h"
 
 
-lock_server_cache::lock_server_cache()
-{
-    sem_init(&lock_manager,0,1);
+lock_server_cache::lock_server_cache() {
+    VERIFY(pthread_mutex_init(&lockManagerLock, NULL) == 0);
 }
 
 
-int lock_server_cache::acquire(lock_protocol::lockid_t lid, 
-              std::string id, 
-                               int &r)
-{
-    sem_wait(&this->lock_manager);
-  lock_protocol::status ret = lock_protocol::OK;
-  if(this->locks.find(lid)==this->locks.end())
-  {
-    server_lock_info linfo;
-    //lockinfo init
-    linfo.clientiswaiting=false;
-    linfo.clockisusing=false;
-    linfo.lock_state=NONE;
-    this->locks.insert(std::pair<int,server_lock_info>(lid,linfo));
-    sem_init(&this->locks.at(lid).acquire_lock_mutex,0,1);
-    sem_init(&this->locks.at(lid).modify_lock_info_mutex,0,1);
-  }
-  switch (this->locks.at(lid).lock_state)
-  {
-    case NONE:
-        this->locks.at(lid).lock_state=LOCKED;
-        this->locks.at(lid).lock_owner=id;
-        sem_post(&this->lock_manager);
-      break;
-    case LOCKED:
-        this->locks.at(lid).lockwaiters.push_back(id);
-        this->locks.at(lid).lock_state=REVOKING;
-        sem_post(&this->lock_manager);
-        handle(this->locks.at(lid).lock_owner).safebind()->call(rlock_protocol::revoke,lid,r);
-        //rpc_call(this->locks.at(lid).lock_owner,lid,rlock_protocol::revoke);
-        return lock_protocol::RETRY;
-    case REVOKING:
-        this->locks.at(lid).lockwaiters.push_back(id);
-        sem_post(&lock_manager);
-        return lock_protocol::RETRY;
-    case RETRYING:
-        //the first waiting client
-        if(id.compare(this->locks.at(lid).retry_client)==0)
-        {
-            this->locks.at(lid).retry_client.clear();
-            this->locks.at(lid).lock_state=LOCKED;
-            this->locks.at(lid).lock_owner=id;
-            if(this->locks.at(lid).lockwaiters.size()>0)
-            {
-                this->locks.at(lid).lock_state=REVOKING;
-                sem_post(&lock_manager);
-                do{
-                ret=handle(id).safebind()->call(rlock_protocol::revoke,lid,r);
-                //this->rpc_call(id,lid,rlock_protocol::revoke);
-                }while(ret!=lock_protocol::OK);
-            }
-            else{
-                sem_post(&lock_manager);
-            }
-        }
-        else{
-            this->locks.at(lid).lockwaiters.push_back(id);
-            sem_post(&lock_manager);
+int lock_server_cache::acquire(lock_protocol::lockid_t lid, std::string clientID,
+                               int &) {
+    int r;
+    std::map<lock_protocol::lockid_t, LockEntry *>::iterator iter;
+    pthread_mutex_lock(&lockManagerLock);
+
+
+    iter = lockManager.find(lid);
+    if (iter == lockManager.end()) {
+        lockManager[lid] = new LockEntry;
+        lockManager[lid]->state = NONE;
+        assert(lockManager[lid]->owner.empty());
+        assert(lockManager[lid]->retryingClient.empty());
+        assert(lockManager[lid]->waitingClients.empty());
+    }
+
+    LockEntry *lockEntry = lockManager[lid];
+
+
+    switch (lockEntry->state) {
+        case NONE:
+            assert(lockEntry->owner.empty());
+            lockEntry->state = LOCKED;
+            lockEntry->owner = clientID;
+            pthread_mutex_unlock(&lockManagerLock);
+            return lock_protocol::OK;
+
+        case LOCKED:
+            assert(!lockEntry->waitingClients.count(clientID));
+            assert(!lockEntry->owner.empty());
+            assert(lockEntry->owner != clientID);
+
+            lockEntry->waitingClients.insert(clientID);
+            lockEntry->state = REVOKING;
+
+            pthread_mutex_unlock(&lockManagerLock);
+            handle(lockEntry->owner).safebind()->call(rlock_protocol::revoke, lid, r);
+
             return lock_protocol::RETRY;
-        }
-  default: 
-      break;
-  }
-  return lock_protocol::OK;
-}
-  
 
-int 
-lock_server_cache::release(lock_protocol::lockid_t lid, 
-std::string id, 
-         int &r)
-{
-  lock_protocol::status ret = lock_protocol::OK;
-  if(id.compare(this->locks.at(lid).lock_owner)!=0)
-  {
-    //release a lock that not occupied by him, error
-    return lock_protocol::IOERR;
-  }
-  else{
-    //send retry to next wait client
-    if(this->locks.at(lid).lockwaiters.size()==0)
-    {
-        return lock_protocol::OK;
+        case REVOKING:
+            assert(!lockEntry->waitingClients.count(clientID));
+            lockEntry->waitingClients.insert(clientID);
+            pthread_mutex_unlock(&lockManagerLock);
+            return lock_protocol::RETRY;
+        case RETRYING:
+            if (clientID == lockEntry->retryingClient) {
+                assert(!lockEntry->waitingClients.count(clientID));
+                lockEntry->retryingClient.clear();
+                lockEntry->state = LOCKED;
+                lockEntry->owner = clientID;
+                if (!lockEntry->waitingClients.empty()) {
+                    lockEntry->state = REVOKING;
+                    pthread_mutex_unlock(&lockManagerLock);
+                    handle(clientID).safebind()->call(rlock_protocol::revoke, lid, r);
+                    return lock_protocol::OK;
+                } else {
+                    pthread_mutex_unlock(&lockManagerLock);
+                    return lock_protocol::OK;
+                }
+            } else {
+                assert(!lockEntry->waitingClients.count(clientID));
+                lockEntry->waitingClients.insert(clientID);
+                pthread_mutex_unlock(&lockManagerLock);
+                return lock_protocol::RETRY;
+            }
+        default:
+            assert(0);
     }
-    else{
-        sem_wait(&lock_manager);
-        string retry_client=this->locks.at(lid).lockwaiters[0];
-        this->locks.at(lid).lockwaiters.erase(this->locks.at(lid).lockwaiters.begin());
-        this->locks.at(lid).retry_client=retry_client;
-        this->locks.at(lid).lock_owner.clear();
-        this->locks.at(lid).lock_state=RETRYING;
-        sem_post(&this->lock_manager);
-        do{
-        ret=handle(retry_client).safebind()->call(rlock_protocol::retry,lid,r);
-        //this->rpc_call(retry_client,lid,rlock_protocol::retry);
-        }while(ret!=lock_protocol::OK);
-    }
-  }
-  return ret;
+}
+
+int
+lock_server_cache::release(lock_protocol::lockid_t lid, std::string clientID,
+                           int &r) {
+    lock_protocol::status ret = lock_protocol::OK;
+    pthread_mutex_lock(&lockManagerLock);
+    LockEntry *lockEntry = lockManager[lid];
+    assert(lockEntry);
+    assert(lockEntry->state == REVOKING);
+    assert(lockEntry->waitingClients.size() >= 0);
+    assert(lockEntry->owner == clientID);
+    std::string nextWaitingClient = *(lockEntry->waitingClients.begin());
+    lockEntry->waitingClients.erase(lockEntry->waitingClients.begin());
+    lockEntry->retryingClient = nextWaitingClient;
+    lockEntry->owner.clear();
+    lockEntry->state = RETRYING;
+    pthread_mutex_unlock(&lockManagerLock);
+    handle(nextWaitingClient).safebind()->call(rlock_protocol::retry, lid, r);
+    return ret;
 }
 
 lock_protocol::status
-lock_server_cache::stat(lock_protocol::lockid_t lid, int &r)
-{
-  tprintf("stat request\n");
-  r = nacquire;
-  return lock_protocol::OK;
+lock_server_cache::stat(lock_protocol::lockid_t lid, int &r) {
+    tprintf("stat request\n");
+    r = nacquire;
+    return lock_protocol::OK;
 }
 
-void lock_server_cache::rpc_call(string client_id,lock_protocol::lockid_t lid,rlock_protocol::rpc_numbers func)
-{
-    sockaddr_in dstsock;
-    make_sockaddr(client_id.c_str(), &dstsock);
-    server = new rpcc(dstsock);
-    int r;
-    this->server->call(func,lid,r);
+lock_server_cache::~lock_server_cache() {
+
+    pthread_mutex_lock(&lockManagerLock);
+    std::map<lock_protocol::lockid_t, LockEntry *>::iterator iter;
+    for (iter = lockManager.begin(); iter != lockManager.end(); iter++)
+        delete iter->second;
+
+    pthread_mutex_unlock(&lockManagerLock);
 }

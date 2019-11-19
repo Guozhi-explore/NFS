@@ -1,0 +1,103 @@
+starting ./lock_server 5094 > lock_server.log 2>&1 &
+starting ./extent_server 5088 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5088 5094 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5088 5094 > yfs_client2.log 2>&1 &
+starting ./lock_server 10666 > lock_server.log 2>&1 &
+starting ./extent_server 10660 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 10660 10666 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 10660 10666 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 6040 > lock_server.log 2>&1 &
+starting ./extent_server 6034 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 6034 6040 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 6034 6040 > yfs_client2.log 2>&1 &
+starting ./lock_server 4980 > lock_server.log 2>&1 &
+starting ./extent_server 4974 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 4974 4980 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 4974 4980 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs2
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 4952 > lock_server.log 2>&1 &
+starting ./extent_server 4946 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 4946 4952 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 4946 4952 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs2
+starting ./lock_server 24400 > lock_server.log 2>&1 &
+starting ./extent_server 24394 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 24394 24400 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 24394 24400 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 22717 > lock_server.log 2>&1 &
+starting ./extent_server 22711 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 22711 22717 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 22711 22717 > yfs_client2.log 2>&1 &
+starting ./lock_server 5215 > lock_server.log 2>&1 &
+starting ./extent_server 5209 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5209 5215 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5209 5215 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 33688 > lock_server.log 2>&1 &
+starting ./extent_server 33682 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 33682 33688 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 33682 33688 > yfs_client2.log 2>&1 &
+starting ./lock_server 4056 > lock_server.log 2>&1 &
+starting ./extent_server 4050 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 4050 4056 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 4050 4056 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: 
