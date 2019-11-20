@@ -1,0 +1,456 @@
+starting ./lock_server 2444 > lock_server.log 2>&1 &
+starting ./extent_server 2438 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 2438 2444 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 2438 2444 > yfs_client2.log 2>&1 &
+starting ./lock_server 13483 > lock_server.log 2>&1 &
+starting ./extent_server 13477 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 13477 13483 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 13477 13483 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 27910 > lock_server.log 2>&1 &
+starting ./extent_server 27904 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 27904 27910 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 27904 27910 > yfs_client2.log 2>&1 &
+starting ./lock_server 22423 > lock_server.log 2>&1 &
+starting ./extent_server 22417 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 22417 22423 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 22417 22423 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 6544 > lock_server.log 2>&1 &
+starting ./extent_server 6538 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 6538 6544 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 6538 6544 > yfs_client2.log 2>&1 &
+starting ./lock_server 3526 > lock_server.log 2>&1 &
+starting ./extent_server 3520 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 3520 3526 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 3520 3526 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 15842 > lock_server.log 2>&1 &
+starting ./extent_server 15836 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 15836 15842 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 15836 15842 > yfs_client2.log 2>&1 &
+starting ./lock_server 12938 > lock_server.log 2>&1 &
+starting ./extent_server 12932 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 12932 12938 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 12932 12938 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 13076 > lock_server.log 2>&1 &
+starting ./extent_server 13070 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 13070 13076 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 13070 13076 > yfs_client2.log 2>&1 &
+starting ./lock_server 18947 > lock_server.log 2>&1 &
+starting ./extent_server 18941 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 18941 18947 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 18941 18947 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 34596 > lock_server.log 2>&1 &
+starting ./extent_server 34590 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 34590 34596 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 34590 34596 > yfs_client2.log 2>&1 &
+starting ./lock_server 25241 > lock_server.log 2>&1 &
+starting ./extent_server 25235 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 25235 25241 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 25235 25241 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 26009 > lock_server.log 2>&1 &
+starting ./extent_server 26003 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 26003 26009 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 26003 26009 > yfs_client2.log 2>&1 &
+starting ./lock_server 10187 > lock_server.log 2>&1 &
+starting ./extent_server 10181 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 10181 10187 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 10181 10187 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 18729 > lock_server.log 2>&1 &
+starting ./extent_server 18723 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 18723 18729 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 18723 18729 > yfs_client2.log 2>&1 &
+starting ./lock_server 8217 > lock_server.log 2>&1 &
+starting ./extent_server 8211 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 8211 8217 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 8211 8217 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Failed test-part1-c
+error: yfs_client not found (expecting 2)
+starting ./lock_server 23983 > lock_server.log 2>&1 &
+starting ./extent_server 23977 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23977 23983 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23977 23983 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 19683 > lock_server.log 2>&1 &
+starting ./extent_server 19677 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 19677 19683 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 19677 19683 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 23565 > lock_server.log 2>&1 &
+starting ./extent_server 23559 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23559 23565 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23559 23565 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 16726 > lock_server.log 2>&1 &
+starting ./extent_server 16720 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 16720 16726 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 16720 16726 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 25782 > lock_server.log 2>&1 &
+starting ./extent_server 25776 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 25776 25782 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 25776 25782 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 19237 > lock_server.log 2>&1 &
+starting ./extent_server 19231 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 19231 19237 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 19231 19237 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 5161 > lock_server.log 2>&1 &
+starting ./extent_server 5155 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5155 5161 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5155 5161 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 5141 > lock_server.log 2>&1 &
+starting ./extent_server 5135 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5135 5141 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5135 5141 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 28811 > lock_server.log 2>&1 &
+starting ./extent_server 28805 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 28805 28811 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 28805 28811 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 5606 > lock_server.log 2>&1 &
+starting ./extent_server 5600 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5600 5606 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5600 5606 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 26557 > lock_server.log 2>&1 &
+starting ./extent_server 26551 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 26551 26557 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 26551 26557 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 5124 > lock_server.log 2>&1 &
+starting ./extent_server 5118 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5118 5124 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5118 5124 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 23873 > lock_server.log 2>&1 &
+starting ./extent_server 23867 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23867 23873 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23867 23873 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 32182 > lock_server.log 2>&1 &
+starting ./extent_server 32176 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 32176 32182 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 32176 32182 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 15543 > lock_server.log 2>&1 &
+starting ./extent_server 15537 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 15537 15543 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 15537 15543 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 10279 > lock_server.log 2>&1 &
+starting ./extent_server 10273 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 10273 10279 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 10273 10279 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 26030 > lock_server.log 2>&1 &
+starting ./extent_server 26024 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 26024 26030 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 26024 26030 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 19373 > lock_server.log 2>&1 &
+starting ./extent_server 19367 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 19367 19373 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 19367 19373 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 28580 > lock_server.log 2>&1 &
+starting ./extent_server 28574 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 28574 28580 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 28574 28580 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 14246 > lock_server.log 2>&1 &
+starting ./extent_server 14240 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 14240 14246 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 14240 14246 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 12626 > lock_server.log 2>&1 &
+starting ./extent_server 12620 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 12620 12626 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 12620 12626 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 18137 > lock_server.log 2>&1 &
+starting ./extent_server 18131 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 18131 18137 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 18131 18137 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 17952 > lock_server.log 2>&1 &
+starting ./extent_server 17946 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 17946 17952 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 17946 17952 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 3361 > lock_server.log 2>&1 &
+starting ./extent_server 3355 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 3355 3361 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 3355 3361 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 11592 > lock_server.log 2>&1 &
+starting ./extent_server 11586 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 11586 11592 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 11586 11592 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 14184 > lock_server.log 2>&1 &
+starting ./extent_server 14178 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 14178 14184 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 14178 14184 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 14746 > lock_server.log 2>&1 &
+starting ./extent_server 14740 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 14740 14746 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 14740 14746 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 23272 > lock_server.log 2>&1 &
+starting ./extent_server 23266 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23266 23272 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23266 23272 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+FATAL: Your YFS client has failed to mount its filesystem!
+starting ./lock_server 11567 > lock_server.log 2>&1 &
+starting ./extent_server 11561 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 11561 11567 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 11561 11567 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 14724 > lock_server.log 2>&1 &
+starting ./extent_server 14718 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 14718 14724 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 14718 14724 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Failed test-part1-c
+error: yfs_client not found (expecting 2)
+starting ./lock_server 29584 > lock_server.log 2>&1 &
+starting ./extent_server 29578 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 29578 29584 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 29578 29584 > yfs_client2.log 2>&1 &
+starting ./lock_server 31743 > lock_server.log 2>&1 &
+starting ./extent_server 31737 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 31737 31743 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 31737 31743 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 13095 > lock_server.log 2>&1 &
+starting ./extent_server 13089 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 13089 13095 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 13089 13095 > yfs_client2.log 2>&1 &
+starting ./lock_server 21755 > lock_server.log 2>&1 &
+starting ./extent_server 21749 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 21749 21755 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 21749 21755 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Failed test-part1-c
+error: yfs_client not found (expecting 2)
+starting ./lock_server 34672 > lock_server.log 2>&1 &
+starting ./extent_server 34666 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 34666 34672 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 34666 34672 > yfs_client2.log 2>&1 &
+starting ./lock_server 22200 > lock_server.log 2>&1 &
+starting ./extent_server 22194 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 22194 22200 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 22194 22200 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: OK
+Concurrent creates of the same file: OK
+Concurrent create/delete: OK
+Concurrent creates, same file, same server: OK
+Concurrent writes to different parts of same file: OK
+Passed part2 A
+Create/delete in separate directories: tests completed OK
+Passed part2 B
+
+Score: 120/120
+starting ./lock_server 21325 > lock_server.log 2>&1 &
+starting ./extent_server 21319 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 21319 21325 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 21319 21325 > yfs_client2.log 2>&1 &
+starting ./lock_server 22916 > lock_server.log 2>&1 &
+starting ./extent_server 22910 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 22910 22916 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 22910 22916 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Failed test-part1-c
+error: yfs_client not found (expecting 2)
+starting ./lock_server 33971 > lock_server.log 2>&1 &
+starting ./extent_server 33965 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 33965 33971 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 33965 33971 > yfs_client2.log 2>&1 &
+starting ./lock_server 17583 > lock_server.log 2>&1 &
+starting ./extent_server 17577 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 17577 17583 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 17577 17583 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Failed test-part1-c
+error: yfs_client not found (expecting 2)
+starting ./lock_server 16009 > lock_server.log 2>&1 &
+starting ./extent_server 16003 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 16003 16009 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 16003 16009 > yfs_client2.log 2>&1 &
+starting ./lock_server 31903 > lock_server.log 2>&1 &
+starting ./extent_server 31897 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 31897 31903 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 31897 31903 > yfs_client2.log 2>&1 &
+Passed part1 A
+Passed part1 B
+Passed part1 C
+Passed part1 D
+Passed part1 E
+Passed part1 G (consistency)
+Lab2 part 1 passed
+Concurrent creates: 

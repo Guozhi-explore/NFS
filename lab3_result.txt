@@ -1,0 +1,248 @@
+starting ./lock_server 24711 > lock_server.log 2>&1 &
+starting ./extent_server 24705 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 24705 24711 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 24705 24711 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 7395 > lock_server.log 2>&1 &
+starting ./extent_server 7389 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 7389 7395 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 7389 7395 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 6715 > lock_server.log 2>&1 &
+starting ./extent_server 6709 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 6709 6715 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 6709 6715 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 7246 > lock_server.log 2>&1 &
+starting ./extent_server 7240 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 7240 7246 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 7240 7246 > yfs_client2.log 2>&1 &
+Create/delete in separate directories:starting ./lock_server 9256 > lock_server.log 2>&1 &
+starting ./extent_server 9250 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 9250 9256 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 9250 9256 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: starting ./lock_server 101starting ./lock_server 27372 > lock_server.log 2>&1 &
+starting ./extent_server 27366 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 27366 27372 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 27366 27372 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: starting ./lock_server 13750 > lock_server.log 2>&1 &
+starting ./extent_server 13744 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 13744 13750 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 13744 13750 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: starting ./lock_server 12887 > lock_server.log 2>&1 &
+starting ./extent_server 12881 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 12881 12887 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 12881 12887 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: starting ./lock_server 9363 > lock_server.log 2>&1 &
+starting ./extent_server 9357 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 9357 9363 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 9357 9363 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs2
+starting ./lock_server 34153 > lock_server.log 2>&1 &
+starting ./extent_server 34147 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 34147 34153 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 34147 34153 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 26858 > lock_server.log 2>&1 &
+starting ./extent_server 26852 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 26852 26858 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 26852 26858 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 20563 > lock_server.log 2>&1 &
+starting ./extent_server 20557 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20557 20563 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20557 20563 > yfs_client2.log 2>&1 &
+Create/delete in separate directories: tests completed OK
+starting ./lock_server 31838 > lock_server.log 2>&1 &
+starting ./extent_server 31832 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 31832 31838 > yfs_client1.log 2>&1 &
+starting ./yfs_client /hostarting ./lock_server 24613 > lock_server.log 2>&1 &
+starting ./extent_server 24607 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 24607 24613 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 24607 24613 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 2413 > lock_server.log 2>&1 &
+starting ./extent_server 2407 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 2407 2413 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 2407 2413 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 17976 > lock_server.log 2>&1 &
+starting ./extent_server 17970 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 17970 17976 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 17970 17976 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 28364 > lock_server.log 2>&1 &
+starting ./extent_server 28358 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 28358 28364 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 28358 28364 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 21974 > lock_server.log 2>&1 &
+starting ./extent_server 21968 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 21968 21974 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 21968 21974 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 14687 > lock_server.log 2>&1 &
+starting ./extent_server 14681 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 14681 14687 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 14681 14687 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 8439 > lock_server.log 2>&1 &
+starting ./extent_server 8433 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 8433 8439 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 8433 8439 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 23458 > lock_server.log 2>&1 &
+starting ./extent_server 23452 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23452 23458 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23452 23458 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 11138 > lock_server.log 2>&1 &
+starting ./extent_server 11132 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 11132 11138 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 11132 11138 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 32555 > lock_server.log 2>&1 &
+starting ./extent_server 32549 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 32549 32555 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 32549 32555 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 6261 > lock_server.log 2>&1 &
+starting ./extent_server 6255 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 6255 6261 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 6255 6261 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 17492 > lock_server.log 2>&1 &
+starting ./extent_server 17486 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 17486 17492 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 17486 17492 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 33341 > lock_server.log 2>&1 &
+starting ./extent_server 33335 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 33335 33341 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 33335 33341 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 20549 > lock_server.log 2>&1 &
+starting ./extent_server 20543 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20543 20549 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20543 20549 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 20540 > lock_server.log 2>&1 &
+starting ./extent_server 20534 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20534 20540 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20534 20540 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 12202 > lock_server.log 2>&1 &
+starting ./extent_server 12196 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 12196 12202 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 12196 12202 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 33966 > lock_server.log 2>&1 &
+starting ./extent_server 33960 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 33960 33966 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 33960 33966 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 5958 > lock_server.log 2>&1 &
+starting ./extent_server 5952 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 5952 5958 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 5952 5958 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 20739 > lock_server.log 2>&1 &
+starting ./extent_server 20733 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20733 20739 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20733 20739 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 18923 > lock_server.log 2>&1 &
+starting ./extent_server 18917 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 18917 18923 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 18917 18923 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 30624 > lock_server.log 2>&1 &
+starting ./extent_server 30618 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 30618 30624 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 30618 30624 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 15190 > lock_server.log 2>&1 &
+starting ./extent_server 15184 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 15184 15190 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 15184 15190 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 21358 > lock_server.log 2>&1 &
+starting ./extent_server 21352 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 21352 21358 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 21352 21358 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 23319 > lock_server.log 2>&1 &
+starting ./extent_server 23313 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23313 23319 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23313 23319 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 16914 > lock_server.log 2>&1 &
+starting ./extent_server 16908 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 16908 16914 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 16908 16914 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 21163 > lock_server.log 2>&1 &
+starting ./extent_server 21157 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 21157 21163 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 21157 21163 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 15018 > lock_server.log 2>&1 &
+starting ./extent_server 15012 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 15012 15018 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 15012 15018 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 20627 > lock_server.log 2>&1 &
+starting ./extent_server 20621 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20621 20627 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20621 20627 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 31537 > lock_server.log 2>&1 &
+starting ./extent_server 31531 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 31531 31537 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 31531 31537 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 4719 > lock_server.log 2>&1 &
+starting ./extent_server 4713 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 4713 4719 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 4713 4719 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 7542 > lock_server.log 2>&1 &
+starting ./extent_server 7536 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 7536 7542 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 7536 7542 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 24304 > lock_server.log 2>&1 &
+starting ./extent_server 24298 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 24298 24304 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 24298 24304 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 27779 > lock_server.log 2>&1 &
+starting ./extent_server 27773 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 27773 27779 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 27773 27779 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 23926 > lock_server.log 2>&1 &
+starting ./extent_server 23920 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 23920 23926 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 23920 23926 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 8110 > lock_server.log 2>&1 &
+starting ./extent_server 8104 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 8104 8110 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 8104 8110 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 15324 > lock_server.log 2>&1 &
+starting ./extent_server 15318 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 15318 15324 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 15318 15324 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 20451 > lock_server.log 2>&1 &
+starting ./extent_server 20445 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 20445 20451 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 20445 20451 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
+starting ./lock_server 16760 > lock_server.log 2>&1 &
+starting ./extent_server 16754 > extent_server.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs1 16754 16760 > yfs_client1.log 2>&1 &
+starting ./yfs_client /home/stu/devlop/lab1/yfs2 16754 16760 > yfs_client2.log 2>&1 &
+Failed to mount YFS properly at ./yfs1
